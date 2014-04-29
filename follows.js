@@ -15,7 +15,7 @@
 	var defaultKey		= 'N4yEEcwKjpjXvW4qYebA3Eg4bLFnDd1OQtjvBtfNkMpyd0g2', // Unique master Xively API key to be used as a default
 		defaultFeeds	= [1535562275], // Comma separated array of Xively Feed ID numbers
 		applicationName	= 'BlaBerry', // Replaces Xively logo in the header
-		dataDuration	= '', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
+		dataDuration	= '1day', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
 		dataInterval	= 0, // Default interval for data to be displayed (in seconds)
 		dataColor		= '', // CSS HEX value of color to represent data (omit leading #)
 		hideForm		= 0; // To hide input form use value of 1, otherwise set to 0
@@ -88,6 +88,7 @@
 					 if(duration == '1week') diff = 604800000;
 					 if(duration == '1month') diff = 2628000000;
 					 if(duration == '90days') diff = 7884000000;
+					 if(duration == '1year') diff = 31536000000;
 					then.setTime(now.getTime() - diff);
 					if(updated.getTime() > then.getTime()) {
 						if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
@@ -349,6 +350,12 @@
 					$('#feed-' + data.id + ' .duration-90').click(function() {
 						$('#loadingData').foundation('reveal', 'open');
 						updateFeeds(data.id, thisFeedDatastreams, '90days', 10800);
+						return false;
+					});
+
+					$('#feed-' + data.id + ' .duration-year').click(function() {
+						$('#loadingData').foundation('reveal', 'open');
+						updateFeeds(data.id, thisFeedDatastreams, '1year', 43200);
 						return false;
 					});
 
